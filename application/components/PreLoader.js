@@ -3,7 +3,6 @@ import { View, ActivityIndicator,
         StyleSheet, Dimensions} from 'react-native';
 
 const height = Dimensions.get('window').height;
-
 export default class PreLoader extends Component{
     render(){
         return (
