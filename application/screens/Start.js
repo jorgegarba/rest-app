@@ -3,11 +3,19 @@ import BackgroundImage from '../components/BackgroundImage';
 import AppButton from './../components/AppButton';
 import { View } from 'react-native';
 
-
+import {NavigationActions} from 'react-navigation';
 export default class Start extends Component {
 
-    login() {
+    static navigationOptions = {
+        title: 'Rest-App CodiGo'
+    }
 
+    login() {
+        const navegador = NavigationActions.navigate({
+            routeName:'Login'
+        });
+
+        this.props.navigation.dispatch(navegador);
     }
     register() {
 
@@ -25,14 +33,14 @@ export default class Start extends Component {
                         title="Iniciar Sesión"
                         iconSize={30}
                         iconColor="#fff"
-                        action={() => { console.log(1); }}
+                        action={this.login.bind(this)}
                         setWidth={true} />
                     <AppButton bgColor="rgba(220,200,50,0.7)"
                         iconName="user-plus"
                         title="Registrarme"
                         iconSize={30}
                         iconColor="#fff"
-                        action={() => { console.log(1); }}
+                        action={this.register.bind(this)}
                         setWidth={true} />
                     <AppButton bgColor="rgba(69,69,146,0.7)"
                         iconName="facebook"

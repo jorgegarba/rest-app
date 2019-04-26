@@ -7,6 +7,10 @@ import Start from './application/screens/Start';
 import Login from './application/screens/Login';
 import GuestNavigator from './application/navigations/guest';
 
+import * as firebase from 'firebase';
+import firebaseConfig from './application/utils/firebase';
+firebase.initializeApp(firebaseConfig);
+
 export default class App extends React.Component {
   render() {
     return (

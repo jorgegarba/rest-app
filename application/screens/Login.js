@@ -7,10 +7,43 @@ import AppButton from '../components/AppButton';
 const Form = t.form.Form;
 
 export default class Login extends Component {
+
+    validador;
+
+    iniciarSesion(){
+        const valido = this.refs.form.getValue();
+        if(valido){
+            console.log(valido);
+        }else{
+            console.log("error invalido");
+        }
+    }
+
+
+
     render() {
+
+        this.validador = {
+            vEmail: t.refinement(t.String,(valor)=>{
+                if(/@/.test(valor)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }),
+            vPassword: t.refinement(t.String,(valor)=>{
+                if(valor.length >= 6){
+                    return true;
+                }else{
+                    return false;
+                }
+            })
+        };
+
+
         var User = t.struct({
-            email: t.String,
-            password: t.String,
+            email: this.validador.vEmail,
+            password: this.validador.vPassword,
         });
         var options = {
             fields:{
@@ -36,12 +69,11 @@ export default class Login extends Component {
                                 options={options}/>
                         <AppButton bgColor="rgba(111,38,74,0.7)"
                                     title="Login"
-                                    action={()=>{console.log(1);}}
+                                    action={this.iniciarSesion.bind(this)}
                                     iconName="sign-in"
                                     iconSize={30}
                                     iconColor="#fff"
                                     setWidth={false}
-
                         />
                     </Card>
                 </View>
