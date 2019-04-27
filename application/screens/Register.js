@@ -1,35 +1,13 @@
 import React, { Component } from 'react'
-import t from 'tcomb-form-native';
 import BackgroundImage from '../components/BackgroundImage';
-import {View, Alert} from 'react-native';
-import {Card} from 'react-native-elements';
 import AppButton from '../components/AppButton';
+import {View} from 'react-native';
+import {Card} from  'react-native-elements';
+import t from 'tcomb-form-native';
 const Form = t.form.Form;
 
-import * as firebase from 'firebase';
-
-
-export default class Login extends Component {
-
+export default class Register extends Component {
     validador;
-
-    iniciarSesion(){
-        const valido = this.refs.form.getValue();
-        if(valido){
-            firebase.auth()
-                    .signInWithEmailAndPassword(valido.email,valido.password)
-                    .then(()=>{
-                        Alert.alert("Éxito","Usuario correcto!")
-                    })
-                    .catch((error)=>{
-                        console.log(error);
-                    });
-        }else{
-            console.log("error invalido");
-        }
-    }
-
-
 
     render() {
 
@@ -49,8 +27,6 @@ export default class Login extends Component {
                 }
             })
         };
-
-
         var User = t.struct({
             email: this.validador.vEmail,
             password: this.validador.vPassword,
@@ -70,21 +46,22 @@ export default class Login extends Component {
                 }
             }
         };
+
+
         return (
-            <BackgroundImage source={require("./../../assets/images/bg1.jpg")}>
+            <BackgroundImage source={require('./../../assets/images/bg1.jpg')}>
                 <View>
-                    <Card wrapperStyle={{paddingLeft:10}} title="Iniciar Sesión" >
+                    <Card wrapperStyle={{ paddingLeft: 10 }} title="Iniciar Sesión" >
                         <Form ref="form"
-                                type={User}
-                                options={options}/>
+                            type={User}
+                            options={options} />
                         <AppButton bgColor="rgba(111,38,74,0.7)"
-                                    title="Login"
-                                    action={this.iniciarSesion.bind(this)}
-                                    iconName="sign-in"
-                                    iconSize={30}
-                                    iconColor="#fff"
-                                    setWidth={false}
-                        />
+                            title="Registrarme"
+                            action={()=>{}}
+                            iconName="user-plus"
+                            iconSize={30}
+                            iconColor="#fff"
+                            setWidth={false}/>
                     </Card>
                 </View>
             </BackgroundImage>
