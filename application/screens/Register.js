@@ -1,16 +1,59 @@
 import React, { Component } from 'react'
 import BackgroundImage from '../components/BackgroundImage';
 import AppButton from '../components/AppButton';
-import {View} from 'react-native';
+import {View, ToastAndroid} from 'react-native';
 import {Card} from  'react-native-elements';
 import t from 'tcomb-form-native';
+
+import * as firebase from 'firebase';
+
 const Form = t.form.Form;
 
 export default class Register extends Component {
     validador;
+    
+    static navigationOptions =  {
+        title: "Crea Una Cuenta"
+    }
+
+
+    constructor(){
+        super();
+        this.state = {
+            user:{
+                email:'',
+                password:''
+            }
+        }
+    }
+
+    registrar(){
+        valido = this.refs.form.getValue();
+        if(valido){
+            // crear usuario en firebase
+            firebase.auth().createUserWithEmailAndPassword(
+                                                            valido.email,
+                                                            valido.password)
+                            .then(()=>{
+                                ToastAndroid.show("Usuario creado =)",ToastAndroid.SHORT);
+                            })
+                            .catch((error)=>{
+                                ToastAndroid.show(error,ToastAndroid.SHORT);
+                            });
+        }else{
+            ToastAndroid.show('Error en la introducción de los datos',ToastAndroid.SHORT);
+        }
+    }
+
+
+    onChange(evento){
+        console.log(evento);
+        this.setState({
+            user:evento
+        })
+    }
 
     render() {
-
         this.validador = {
             vEmail: t.refinement(t.String,(valor)=>{
                 if(/@/.test(valor)){
@@ -25,11 +68,20 @@ export default class Register extends Component {
                 }else{
                     return false;
                 }
+            }),
+            vPasswordConfirmation: t.refinement(t.String,(valor)=>{
+                if(valor === this.state.user.password){
+                    return true;
+                }else{
+                    return false;
+                }
             })
+
         };
         var User = t.struct({
             email: this.validador.vEmail,
             password: this.validador.vPassword,
+            password_confirmation: this.validador.vPasswordConfirmation
         });
         var options = {
             fields:{
@@ -43,9 +95,17 @@ export default class Register extends Component {
                     error:"Password Incorrecto",
                     password:true,
                     secureTextEntry:true
+                },
+                password_confirmation:{
+                    help: "Repite tu Password",
+                    error: "Los password no coinciden",
+                    password: true,
+                    secureTextEntry: true,
                 }
+
             }
         };
+
 
 
         return (
@@ -54,10 +114,14 @@ export default class Register extends Component {
                     <Card wrapperStyle={{ paddingLeft: 10 }} title="Iniciar Sesión" >
                         <Form ref="form"
                             type={User}
-                            options={options} />
+                            options={options}
+                            onChange={(evento)=>{
+                                this.onChange(evento);
+                            }}
+                            value={this.state.user}/>
                         <AppButton bgColor="rgba(111,38,74,0.7)"
                             title="Registrarme"
-                            action={()=>{}}
+                            action={this.registrar.bind(this)}
                             iconName="user-plus"
                             iconSize={30}
                             iconColor="#fff"

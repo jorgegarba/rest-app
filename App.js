@@ -12,10 +12,27 @@ import firebaseConfig from './application/utils/firebase';
 firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      isLogged: false,
+      loaded: false,
+    }
+  }
+
   render() {
-    return (
-      <GuestNavigator/>
-    );
+    const {isLogged, loaded} = this.state;
+    if(!loaded){
+      // mostrar un spinner de carga
+      return(<PreLoader></PreLoader>)
+    }
+    if(isLogged){
+      // el usuario ya tenia una sesion activa
+      return (<Text>MOSTRAR SCREEN DE USUARIOS LOGGEADOS</Text>)
+    }else{
+      return (<GuestNavigator/>)
+    }
   }
 }
 
