@@ -20,13 +20,13 @@ export default class App extends React.Component {
       loaded: false,
     };
 
-    // firebase.auth().signOut();
+    firebase.auth().signOut();
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     // Función que se ejecuta cuando la
     // sesión del usuario cambia
-    firebase.auth().onAuthStateChanged(user=>{
+    await firebase.auth().onAuthStateChanged(user=>{
       if(!user){
         // no tenga la sesión iniciada
         this.setState({
