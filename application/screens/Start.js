@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import BackgroundImage from '../components/BackgroundImage';
 import AppButton from './../components/AppButton';
-import { View } from 'react-native';
-
+import { View, Alert} from 'react-native';
 import {NavigationActions} from 'react-navigation';
+import facebook from './../utils/facebook';
+
 export default class Start extends Component {
 
     static navigationOptions = {
@@ -22,8 +23,20 @@ export default class Start extends Component {
         });
         this.props.navigation.dispatch(navegador);
     }
-    facebook() {
-
+    async facebook() {
+        const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync(
+            facebook.application_id,
+            {
+                permissions: facebook.permissions
+            });
+        if(type === "success"){
+            Alert.alert("exito","exito al iniciar sesion");
+        }else if(type === "cancel"){
+            Alert.alert("cancelado","el usuario canceló el incio de sesión");
+        }else{
+            Alert.alert("Error siñorsh");
+        }
+        
     }
 
     render() {
@@ -49,7 +62,7 @@ export default class Start extends Component {
                         title="Facebook"
                         iconSize={30}
                         iconColor="#fff"
-                        action={() => { console.log(1); }}
+                        action={this.facebook.bind(this)}
                         setWidth={true} />
                 </View>
             </BackgroundImage>
