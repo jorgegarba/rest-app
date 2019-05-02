@@ -4,6 +4,7 @@ import AppButton from './../components/AppButton';
 import { View, Alert} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import facebook from './../utils/facebook';
+import * as firebase from 'firebase';
 
 export default class Start extends Component {
 
@@ -30,7 +31,15 @@ export default class Start extends Component {
                 permissions: facebook.permissions
             });
         if(type === "success"){
-            Alert.alert("exito","exito al iniciar sesion");
+
+            // const respuesta = await fetch("https://graph.facebook.com/me?access_token="+token+"&fields=picture");
+            // const info = await respuesta.json();
+            // console.log(info);
+            
+            // Metodo Firebase
+            const misCredenciales = firebase.auth.FacebookAuthProvider.credential(token);
+            firebase.auth().signInAndRetrieveDataWithCredential(misCredenciales);
+
         }else if(type === "cancel"){
             Alert.alert("cancelado","el usuario canceló el incio de sesión");
         }else{
