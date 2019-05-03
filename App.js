@@ -18,8 +18,6 @@ export default class App extends React.Component {
       isLogged: false,
       loaded: false,
     };
-
-    firebase.auth().signOut();
   }
 
   async componentDidMount(){

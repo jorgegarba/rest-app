@@ -13,6 +13,10 @@ export default class Login extends Component {
 
     validador;
 
+    static navigationOptions =  {
+        title: "Iniciar Sesión"
+    }
+
     iniciarSesion(){
         const valido = this.refs.form.getValue();
         if(valido){
@@ -28,9 +32,6 @@ export default class Login extends Component {
             console.log("error invalido");
         }
     }
-
-
-
     render() {
 
         this.validador = {

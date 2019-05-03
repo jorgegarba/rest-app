@@ -1,9 +1,14 @@
+import React from 'react';
 import {
     createStackNavigator,
     createAppContainer,
     createDrawerNavigator
 } from 'react-navigation';
 import RestaurantsScreen from '../screens/Restaurants/Restaurants';
+import LogoutScreen from '../screens/Logout';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 const navigationOptions = {
     initialRouteName: 'RestaurantsScreen',
     defaultNavigationOptions: {
@@ -29,11 +34,57 @@ const restaurantScreenStack = createStackNavigator(
     navigationOptions
 );
 
+const logoutScreenStack = createStackNavigator(
+    {
+        LogoutScreen:{
+            screen: LogoutScreen
+        },
+    },
+);
+
 
 const miDrawerNavigation = createDrawerNavigator(
     {
         RestScreen:{
-            screen: restaurantScreenStack
+            screen: restaurantScreenStack,
+            navigationOptions:()=>{
+                return ({
+                    drawerLabel: "Mis Restaurantes",
+                    drawerIcon: ()=>{
+                        return (
+                            <Icon name="home"
+                                    size={24}
+                                    style={{color:'white'}}/>
+                        )
+                    }
+                })
+            }
+        },
+        LogoutScreen:{
+            screen: logoutScreenStack,
+            navigationOptions:()=>{
+                return ({
+                    drawerLabel: "Cerrar Sesión",
+                    drawerIcon: ()=>{
+                        return (
+                            <Icon name="sign-out"
+                                    size={24}
+                                    style={{color:'white'}}/>
+                        )
+                    }
+                })
+            }
+        }
+    },
+    {
+        drawerBackgroundColor: 'rgba(128,35,60,0.7)',
+        contentOptions: {
+            activeTintColor: 'white',
+            activeBackgroundColor: 'transparent',
+            inactiveTintColor: 'white',
+            itemsContainerStyle: {
+                marginVertical: 0
+            }
         }
     }
 )
