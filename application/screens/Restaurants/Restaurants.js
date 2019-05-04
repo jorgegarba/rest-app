@@ -5,7 +5,7 @@ import RestaurantAddButton from '../../components/Restaurant/RestaurantAddButton
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as firebase from 'firebase';
 import PreLoader from '../../components/PreLoader';
-
+import {NavigationActions} from 'react-navigation';
 import {FlatList,StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
 
@@ -84,6 +84,14 @@ export default class Restaurants extends Component {
             </ListItem>
         )
     }
+
+    addRestaurant(){
+        const navegador = NavigationActions.navigate({
+            routeName:'AddRestaurantScreen'
+        });
+        this.props.navigation.dispatch(navegador);
+    }
+
     render() {
 
         const { loaded, restaurants } = this.state;
@@ -103,9 +111,11 @@ export default class Restaurants extends Component {
                 <FlatList data={restaurants}
                             renderItem={(data)=>{
                                 return this.renderRestaurant(data.item)
-                            }}>
-
+                            }}
+                            keyExtractor={(data)=>{return data.id}}
+                            >
                 </FlatList>
+                <RestaurantAddButton miFuncion={this.addRestaurant.bind(this)}></RestaurantAddButton>
             </BackgroundImage>
         )
     }

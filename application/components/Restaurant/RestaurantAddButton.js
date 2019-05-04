@@ -4,6 +4,7 @@ import {View, StyleSheet} from 'react-native';
 
 export default class RestaurantAddButton extends Component {
   render() {
+    const miFuncion = this.props.miFuncion;
     return (
         <View style={styles.buttonContainer}>
             <AppButton  bgColor="rgba(255,38,74,0.6)"
@@ -12,7 +13,7 @@ export default class RestaurantAddButton extends Component {
                         iconSize={30}
                         iconColor="#fff"
                         setWidth={true}
-                        action={()=>{console.log("69");}}/>
+                        action={miFuncion}/>
         </View>
     )
   }

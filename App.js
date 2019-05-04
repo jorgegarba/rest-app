@@ -10,6 +10,8 @@ import * as firebase from 'firebase';
 import firebaseConfig from './application/utils/firebase';
 firebase.initializeApp(firebaseConfig);
 
+// console.disableYellowBox = true;
+
 export default class App extends React.Component {
 
   constructor(){
