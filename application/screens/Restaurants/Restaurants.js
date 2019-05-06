@@ -67,7 +67,15 @@ export default class Restaurants extends Component {
         }
     )
 
-
+    verRestaurant(restaurant){
+        const navigateAction = NavigationActions.navigate({
+            routeName:'DetailRestaurantScreen',
+            params: {
+                restaurant:restaurant
+            }
+        });
+        this.props.navigation.dispatch(navigateAction);
+    }
     renderRestaurant(restaurant){
         return(
             <ListItem containerStyle={styles.item}
@@ -80,6 +88,7 @@ export default class Restaurants extends Component {
                                     marginRight:10,
                                     fontSize:15,
                                     color:'white'}}
+                        onPress={()=>{this.verRestaurant(restaurant)}}
                         >
             </ListItem>
         )

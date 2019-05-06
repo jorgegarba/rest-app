@@ -8,7 +8,7 @@ import RestaurantsScreen from '../screens/Restaurants/Restaurants';
 import LogoutScreen from '../screens/Logout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AddRestaurantScreen from './../screens/Restaurants/AddRestaurant';
-
+import DetailRestaurantScreen from './../screens/Restaurants/DetailRestaurant';
 
 const navigationOptions = {
     initialRouteName: 'RestaurantsScreen',
@@ -33,6 +33,9 @@ const restaurantScreenStack = createStackNavigator(
         },
         AddRestaurantScreen: {
             screen: AddRestaurantScreen
+        },
+        DetailRestaurantScreen:{
+            screen: DetailRestaurantScreen
         }
     },
     navigationOptions

@@ -7,6 +7,7 @@ import t from 'tcomb-form-native';
 import AppButton from '../../components/AppButton';
 const Form = t.form.Form;
 import * as firebase from 'firebase';
+import { NavigationActions } from 'react-navigation';
 
 export default class AddRestaurant extends Component {
 
@@ -41,18 +42,22 @@ export default class AddRestaurant extends Component {
                 capacidad: this.state.restaurant.capacidad
             }).then(() => {
                 Alert.alert("Exito!", "El restaurant se ha creado");
+            
+                const navigateAction = NavigationActions.navigate({
+                    routeName:'RestaurantsScreen'
+                });
+                this.props.navigation.dispatch(navigateAction);
+                // this.props.navigation.navigate('RestaurantsScreen');
             }).catch(() => {
                 Alert.alert("Error", "Ocurrió un error fatal =(");
             });
-
         }
     }
     render() {
         return (
             <BackgroundImage source={require('./../../../assets/images/bg1.jpg')}>
-                <KeyboardAvoidingView behavior="padding">
-
-                    <View style={styles.container}>
+                <View style={styles.container}>
+                    <KeyboardAvoidingView behavior="position">
                         <Card title="Agregar un Restaurant">
                             <View>
                                 <Form ref="form"
@@ -71,8 +76,8 @@ export default class AddRestaurant extends Component {
                                 iconColor="#fff">
                             </AppButton>
                         </Card>
-                    </View>
-                </KeyboardAvoidingView>
+                    </KeyboardAvoidingView>
+                </View>
             </BackgroundImage>
 
         )
