@@ -4,6 +4,7 @@ import BackgroundImage from '../../components/BackgroundImage';
 import { ScrollView } from 'react-native';
 import Restaurant from '../../components/Restaurant/Restaurant';
 import {NavigationActions} from 'react-navigation';
+import CommentList from '../../components/Comentarios/CommentList';
 export default class DetailRestaurant extends Component {
     constructor(props){
         super(props);
@@ -27,6 +28,12 @@ export default class DetailRestaurant extends Component {
                     <Restaurant restaurant={this.state.restaurant}
                                 goHome={this.regresar.bind(this)}>
                     </Restaurant>
+                    {/* aqui va el formulario para crear
+                        un nuevo comentario */}
+                        
+                    <CommentList restaurantId={this.state.restaurant.id}>
+
+                    </CommentList>
                 </ScrollView>
             </BackgroundImage>
         )
