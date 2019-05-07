@@ -14,7 +14,15 @@ export default class RestaurantRating extends Component {
             promedio: 0
         }
     }
-    
+
+    componentDidMount(){
+        this.refComentarios.on('value',data=>{
+            data.forEach(fila=>{
+                console.log(fila.val().rating);
+            })
+        })
+    }
+
     render() {
         return (
             <View>
