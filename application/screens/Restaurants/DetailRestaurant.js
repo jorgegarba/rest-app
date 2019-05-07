@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 import BackgroundImage from '../../components/BackgroundImage';
 import { ScrollView } from 'react-native';
 import Restaurant from '../../components/Restaurant/Restaurant';
-
+import {NavigationActions} from 'react-navigation';
 export default class DetailRestaurant extends Component {
     constructor(props){
         super(props);
@@ -12,11 +12,21 @@ export default class DetailRestaurant extends Component {
             restaurant: entrada.restaurant
         }
     }
+
+    regresar(){
+        const navigateAction = NavigationActions.navigate({
+            routeName:'RestaurantsScreen'
+        });
+        this.props.navigation.dispatch(navigateAction);
+    }
+
     render() {
         return (
             <BackgroundImage source={require('./../../../assets/images/bg1.jpg')}>
                 <ScrollView>
-                    <Restaurant restaurant={this.state.restaurant}></Restaurant>
+                    <Restaurant restaurant={this.state.restaurant}
+                                goHome={this.regresar.bind(this)}>
+                    </Restaurant>
                 </ScrollView>
             </BackgroundImage>
         )
