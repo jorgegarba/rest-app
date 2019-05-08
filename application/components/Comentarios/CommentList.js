@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, FlatList, StyleSheet} from 'react-native';
+import {Divider,Card,Rating} from 'react-native-elements';
 import * as firebase from 'firebase';
 import PreLoader from '../PreLoader';
 import CommentEmpty from './CommentEmpty';
@@ -32,6 +33,17 @@ export default class CommentList extends Component {
             });
         })
     }
+    renderComment(comentario){
+        return (
+            <Card title={comentario.comentario}>
+                <Rating
+                        style={styles.rating}
+                        readonly
+                        imageSize={20}
+                        startingValue={comentario.rating}/>
+            </Card>
+        )
+    }
     render() {
         const {loaded,comentarios} = this.state;
         if(!loaded){
@@ -40,7 +52,43 @@ export default class CommentList extends Component {
         if(comentarios.length === 0){
             return (<CommentEmpty/>)
         }else{
-            return (<Text>Si hay comentarios</Text>)
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>Reseñas</Text>
+                    <Divider style={styles.divider}></Divider>
+                    <Card>
+                        <FlatList
+                                data={comentarios}
+                                renderItem={(data)=>{
+                                    return this.renderComment(data.item)
+                                }}
+                                keyExtractor={(data)=>{return data.id}}>
+                        </FlatList>
+                    </Card>
+                </View>
+            )
         }
     }
 }
+
+
+const styles = StyleSheet.create({
+    rating:{
+        alignItems:'center'
+    },
+    container:{
+        justifyContent:'center',
+        flex:1,
+        marginTop:10,
+        marginBottom:10,
+    },
+    divider:{
+        backgroundColor:'red',
+    },
+    title:{
+        fontSize:30,
+        color:'white',
+        textAlign: 'center'
+    }
+
+});
