@@ -6,6 +6,7 @@ import Restaurant from '../../components/Restaurant/Restaurant';
 import {NavigationActions} from 'react-navigation';
 import CommentList from '../../components/Comentarios/CommentList';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CommentForm from '../../components/Comentarios/CommentForm';
 
 export default class DetailRestaurant extends Component {
 
@@ -41,11 +42,8 @@ export default class DetailRestaurant extends Component {
                     <Restaurant restaurant={this.state.restaurant}
                                 goHome={this.regresar.bind(this)}>
                     </Restaurant>
-                    {/* aqui va el formulario para crear
-                        un nuevo comentario */}
-                        
+                    <CommentForm restaurantId={this.state.restaurant.id}></CommentForm>                        
                     <CommentList restaurantId={this.state.restaurant.id}>
-
                     </CommentList>
                 </ScrollView>
             </BackgroundImage>
