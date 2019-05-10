@@ -23,8 +23,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.codigo.restapp"
     },
-    "description": ""
+    "android":{
+      "package": "com.codigo.restapp"
+    },
+    "description": "Aplicación de indexación de Restaurantes"
   }
 }

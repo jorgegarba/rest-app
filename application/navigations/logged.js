@@ -9,9 +9,9 @@ import LogoutScreen from '../screens/Logout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AddRestaurantScreen from './../screens/Restaurants/AddRestaurant';
 import DetailRestaurantScreen from './../screens/Restaurants/DetailRestaurant';
+import MapScreen from '../screens/Maps/Map';
 
 const navigationOptions = {
-    initialRouteName: 'RestaurantsScreen',
     defaultNavigationOptions: {
         headerStyle: {
             backgroundColor: 'rgba(30,30,30,1)',
@@ -49,6 +49,15 @@ const logoutScreenStack = createStackNavigator(
     },
 );
 
+const mapsScreenStack = createStackNavigator(
+    {
+        MapsScreen:{
+            screen: MapScreen
+        },
+    },
+    navigationOptions
+);
+
 
 const miDrawerNavigation = createDrawerNavigator(
     {
@@ -75,6 +84,21 @@ const miDrawerNavigation = createDrawerNavigator(
                     drawerIcon: ()=>{
                         return (
                             <Icon name="sign-out"
+                                    size={24}
+                                    style={{color:'white'}}/>
+                        )
+                    }
+                })
+            }
+        },
+        MapsScreen:{
+            screen: mapsScreenStack,
+            navigationOptions:()=>{
+                return ({
+                    drawerLabel: "Ver Restaurantes",
+                    drawerIcon: ()=>{
+                        return (
+                            <Icon name="map"
                                     size={24}
                                     style={{color:'white'}}/>
                         )
