@@ -29,6 +29,10 @@ export default class AddRestaurant extends Component {
         })
     }
     crearRestaurant() {
+
+        let randomLatitude = -16.0 + -(Math.random());
+        let randomLongitude = -71.0 + -(Math.random());
+
         // getValue() retorna un JSON con la información del formulario
         // SI y SOLO SI el formulario tiene los campos validados
         // en caso contrario, retorna "null"
@@ -39,7 +43,9 @@ export default class AddRestaurant extends Component {
                 nombre: this.state.restaurant.nombre,
                 descripcion: this.state.restaurant.descripcion,
                 direccion: this.state.restaurant.direccion,
-                capacidad: this.state.restaurant.capacidad
+                capacidad: this.state.restaurant.capacidad,
+                lat: randomLatitude,
+                lng: randomLongitude,
             }).then(() => {
                 Alert.alert("Exito!", "El restaurant se ha creado");
             
